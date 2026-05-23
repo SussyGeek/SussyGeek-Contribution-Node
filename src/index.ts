@@ -4,6 +4,7 @@ import { BackendAPI } from './api';
 import { Contributor } from './contributor';
 import { invokeArgs } from './args/invokeArgs';
 import { MODE_MAP } from './config';
+import { sleep } from './utils/utils';
 
 dotenv.config();
 
@@ -80,6 +81,8 @@ async function main() {
 
             choice = (await ask('\n  > ')).trim();
         } else {
+            console.log("Wait contribution tester is starting. This may take 10-18 seconds");
+            await sleep(Math.random()*15 + 3);
             choice = MODE_MAP[args.mode as keyof typeof MODE_MAP];
         }
 

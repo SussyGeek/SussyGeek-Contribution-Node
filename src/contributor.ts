@@ -1,8 +1,7 @@
 import { BackendAPI, GFGAPI } from './api';
 import { parseProfile } from './scraper';
 import { StudentData, BlockConfig, PROFILE_DELAY, BATCH_DELAY } from './config';
-
-const sleep = (s: number) => new Promise(r => setTimeout(r, s * 1000));
+import { sleep } from './utils/utils';
 
 /**
  * Core contribution engine.
