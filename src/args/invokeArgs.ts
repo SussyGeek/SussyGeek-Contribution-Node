@@ -11,12 +11,12 @@ export const invokeArgs = async () => {
             type: "string"
         })
         .option("mode", {
-            choices: ["contribute", "stop", "exit"]
+            choices: ["contribute", "stop", "exit"] as const
         })
         .parse();
 
     return {
         args,
-        isAutomated: args.instituteId && args.sessionId && args.mode
+        isAutomated: !!(args.instituteId && args.sessionId && args.mode)
     };
 };

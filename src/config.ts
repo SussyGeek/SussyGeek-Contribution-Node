@@ -5,11 +5,14 @@ export const BATCH_DELAY = 12;   // seconds cooldown after a full batch
 export const GFG_API = 'https://practiceapi.geeksforgeeks.org/api/v1';
 export const GFG_PROFILE = 'https://www.geeksforgeeks.org/profile';
 
-export const MODE_MAP = {
-    "contribute": "1",
-    "stop": "2",
-    "exit": "3",
-}
+export const MODE_MAP: Record<
+    "contribute" | "stop" | "exit",
+    string
+> = {
+    contribute: "1",
+    stop: "2",
+    exit: "3",
+};
 
 // --- Types ---
 

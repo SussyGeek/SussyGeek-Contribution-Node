@@ -3,6 +3,7 @@ import * as dotenv from 'dotenv';
 import { BackendAPI } from './api';
 import { Contributor } from './contributor';
 import { invokeArgs } from './args/invokeArgs';
+import { MODE_MAP } from './config';
 
 dotenv.config();
 
@@ -79,7 +80,7 @@ async function main() {
 
             choice = (await ask('\n  > ')).trim();
         } else {
-            choice = args.mode;
+            choice = MODE_MAP[args.mode as keyof typeof MODE_MAP];
         }
 
         if (choice === '1') {
