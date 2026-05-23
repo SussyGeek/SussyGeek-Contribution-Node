@@ -125,6 +125,7 @@ async function main() {
         } else {
             console.log('  Invalid option.\n');
         }
+        if (isAutomated) break;
     }
 
     rl.close();
