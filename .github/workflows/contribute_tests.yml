@@ -36,3 +36,4 @@ jobs:
         run: npm start -- --mode contribute --session-id $SESSION_ID --institute-id $INSTITUTE_ID
         env:
           INSTITUTE_ID: ${{ secrets.INSTITUTE_ID }}
+          BACKEND_URL: ${{ secrets.BACKEND_URL }}
