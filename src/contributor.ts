@@ -37,9 +37,9 @@ export class Contributor {
             blockSize: pingRes.data.blockSize,
         };
 
-        // 2. Fetch student list from GFG (directly from this machine).
-        this.log(`Fetching student list from GFG...`);
-        this.students = await GFGAPI.getStudentList(instituteId);
+        // 2. Fetch frozen student list from backend (cached at block creation time).
+        this.log(`Fetching student list from backend...`);
+        this.students = await this.api.getStudentList(instituteId);
         this.log(`Loaded ${this.students.length} students. Block: pages ${config.startingPage}–${config.endingPage}`);
 
         // 3. Scraping loop.

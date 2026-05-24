@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { StudentData, BatchResponse } from './config';
+import { StudentData, BatchResponse, GFG_PROFILE } from './config';
 
 /**
  * Backend API client — authenticated via sessionId cookie.
@@ -47,6 +47,12 @@ export class BackendAPI {
         return data;
     }
 
+    /** Fetch the frozen, ordered student list cached on the backend. */
+    async getStudentList(instituteId: string): Promise<{ handle: string; user_id: number }[]> {
+        const { data } = await this.client.get(`/student/${instituteId}/list`);
+        return data.data.students;
+    }
+
     /** Stop an active contribution session. */
     async stop(instituteId: string): Promise<{ success: boolean; message: string }> {
         const { data } = await this.client.patch(`/contribute/stop/${instituteId}`);
@@ -54,35 +60,13 @@ export class BackendAPI {
     }
 }
 
-/**
- * GFG API client — hits GeeksForGeeks directly from the contributor's machine.
- * No CORS in Node.js. This is what makes it truly distributed.
- */
+// Client API for profile scrapping.
 export class GFGAPI {
-
-    /** Fetch all student handles for an institute. */
-    static async getStudentList(instituteId: string): Promise<{ handle: string; user_id: number }[]> {
-        const base = 'https://practiceapi.geeksforgeeks.org/api/v1';
-
-        // First call: get total count.
-        const { data: peek } = await axios.get(
-            `${base}/institute/${instituteId}/students/stats?page=1&page_size=1`
-        );
-        const count: number = peek.count;
-        if (!count || count === 0)
-            throw new Error('Institute has no registered students on GFG.');
-
-        // Second call: fetch all handles in one shot.
-        const { data: full } = await axios.get(
-            `${base}/institute/${instituteId}/students/stats?page=1&page_size=${count}`
-        );
-        return full.results;
-    }
 
     /** Fetch raw profile HTML for a single user. */
     static async getProfileHTML(username: string): Promise<string> {
         const { data } = await axios.get(
-            `https://www.geeksforgeeks.org/profile/${username}?tab=activity`,
+            `${GFG_PROFILE}/${username}?tab=activity`,
             {
                 timeout: 15000,
                 responseType: 'text',
