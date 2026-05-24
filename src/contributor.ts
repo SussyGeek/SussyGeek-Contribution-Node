@@ -86,7 +86,7 @@ export class Contributor {
                 config.startingPage = res.data.startingPage;
             }
 
-            await sleep(BATCH_DELAY + Math.ceil(Math.random()*1.5));
+            await sleep(BATCH_DELAY + Math.ceil(Math.random() * 1.5));
         }
 
         this.log(`Session complete. Scraped ${this.totalStudents} students in ${this.totalSeconds}s.`);
@@ -135,7 +135,7 @@ export class Contributor {
                 throw err;
             }
 
-            await sleep(PROFILE_DELAY + Math.ceil(Math.random()*1.5));
+            await sleep(PROFILE_DELAY + Math.ceil(Math.random() * 1.5));
             seconds += PROFILE_DELAY;
 
             if (batch.length >= config.batchSize) break;
