@@ -49,7 +49,7 @@ export class BackendAPI {
 
     /** Fetch the frozen, ordered student list cached on the backend. */
     async getStudentList(instituteId: string): Promise<{ handle: string; user_id: number }[]> {
-        const { data } = await this.client.get(`/student/${instituteId}/list`);
+        const { data } = await this.client.get(`/student/institute/${instituteId}/list/frozen`);
         return data.data.students;
     }
 
